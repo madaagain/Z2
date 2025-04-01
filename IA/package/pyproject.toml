@@ -1,0 +1,35 @@
+[tool.pytest.ini_options]
+markers = [
+    "Connection: Tests for connection and parsing",
+    "AI: Tests for the AI",
+]
+addopts = "-p no:warnings --cov=. --cov-report term-missing:skip-covered --no-cov-on-fail --cov-branch"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.python]
+environ = { PYTHONPATH = "." }
+
+[tool.setuptools]
+packages = []
+
+[project]
+name = "ZappyIAPackage"
+version = "0.0.1"
+authors = [
+    { name="guigui0246", email="guigui0246@yahoo.com" },
+]
+description = "A package that runs an AI client for zappy"
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/EpitechPromo2027/B-YEP-400-PAR-4-1-zappy-alexis.mer"
+Issues = "https://github.com/EpitechPromo2027/B-YEP-400-PAR-4-1-zappy-alexis.mer/issues"

@@ -1,0 +1,44 @@
+name: Style
+
+on:
+  push:
+    branches:
+      - main
+      - Feat-Develop
+  pull_request:
+    branches:
+      - main
+      - Feat-Develop
+
+jobs:
+  check_coding_style:
+    name: Coding Style
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: check coding style
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/estebanbaigts/Github-action-for-epitech/main/coding-style.sh | bash -s . .
+          if [ $(wc -l < "./coding-style-reports.log") -ne 0 ]; then
+            exit 1
+          fi
+
+  repo_size_check:
+    needs : [check_coding_style]
+    name: Check Repository Size
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check repository size
+        run: |
+          REPO_SIZE=$(git ls-tree -r -t -l --full-name HEAD | awk '{sum += $4} END {print sum}')
+          echo "Repository size: $REPO_SIZE bytes"
+          MAX_SIZE=104857600 # 30 MB in bytes, adjust this value as needed
+          if [ $REPO_SIZE -gt $MAX_SIZE ]; then
+            echo "Error: Repository size ($REPO_SIZE bytes) is larger than the allowed limit ($MAX_SIZE bytes)"
+            exit 1
+          else
+            echo "Repository size is within the allowed limit"
+          fi

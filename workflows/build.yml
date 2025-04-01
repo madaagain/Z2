@@ -1,0 +1,142 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+      - Feat-Develop
+  pull_request:
+    branches:
+      - main
+      - Feat-Develop
+
+jobs:
+  build:
+    name: Compilation
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    container:
+      image: epitechcontent/epitest-docker:latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo dnf install -y *asio*
+
+    - name: Simple Build
+      run: |
+        mkdir build;
+        cd build;
+        cmake ..;
+        make;
+        cd ..;
+        rm -rf build
+
+    - name: Complete Build
+      run:
+        mkdir build;
+        cd build;
+        cmake ..;
+        make re && make fclean && make && make clean;
+        cd ..
+
+
+
+  execution_test:
+    needs: [build]
+    name: Check if executables can run
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    container:
+      image: epitechcontent/epitest-docker:latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo dnf install -y screen
+        sudo dnf install -y *asio*
+        sudo dnf install -y *Xvfb*
+
+    - name: Set up display
+      run: |
+        Xvfb :99 -screen 0 1024x768x24 &
+        export DISPLAY=:99
+
+    - name: Build
+      run: |
+        mkdir build;
+        cd build;
+        cmake ..;
+        make;
+        cd ..
+
+    - name: Start zappy_server
+      run: |
+        screen -dmS zappy_server ./zappy_server -p 4242 -x 10 -y 10 -n Team1 Team2 -c 5 -f 1
+        sleep 1
+        if ! pgrep -f zappy_server; then
+          echo "zappy_server failed to start" >&2
+          exit 1
+        fi
+
+    - name: Test zappy_gui
+      run: |
+        export DISPLAY=:99
+        nohup ./zappy_gui -p 4242 -h 127.0.0.1 &
+        sleep 1
+        if ! pgrep -f zappy_gui; then
+          echo "zappy_gui failed to start" >&2
+          exit 1
+        fi
+
+    - name: Test zappy_ai
+      run: |
+        nohup ./zappy_ai -p 4242 -n Team1 -h 127.0.0.1 &
+        sleep 1
+        if ! pgrep -f zappy_ai; then
+          echo "zappy_ai failed to start" >&2
+          exit 1
+        fi
+
+    - name: Stop
+      if: always()
+      run: |
+        killall -q zappy_server || echo "server not running" >&2
+        killall -q zappy_gui || echo "gui not running" >&2
+        killall -q zappy_ai || echo "ai not running" >&2
+
+
+
+  run_unit_test:
+    needs: [build]
+    name: Run the unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    container:
+      image: epitechcontent/epitest-docker:latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo dnf install -y *asio*
+          sudo dnf install -y *Xvfb*
+
+      - name: Run tests
+        run: |
+          mkdir build;
+          cd build;
+          cmake ..;
+          make tests_run;
+          cd ..
