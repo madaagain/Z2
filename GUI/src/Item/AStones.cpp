@@ -1,9 +1,3 @@
-/*
-** EPITECH PROJECT, 2024
-** Zappy
-** File description:
-** AStones
-*/
 
 #include "AStone.hpp"
 

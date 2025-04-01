@@ -1,9 +1,4 @@
-/*
-** EPITECH PROJECT, 2023
-** B-YEP-400-PAR-4-1-zappy-alexis.mer
-** File description:
-** GUI.hpp
-*/
+
 
 #include <unistd.h>
 #include <memory>
@@ -203,7 +198,7 @@ void Window::checkItem(GameData& gameData_)
 }
 
 void Window::windowLoop(GameData& gameData_)
-{   
+{
     while (window_.pollEvent(event_)) {
         catchEvent(mapWidth, mapHeight, gameData_);
     }

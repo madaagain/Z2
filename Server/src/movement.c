@@ -1,9 +1,4 @@
-/*
-** EPITECH PROJECT, 2023
-** B-YEP-400-PAR-4-1-zappy-alexis.mer
-** File description:
-** movement.c
-*/
+
 
 #include "ia_command.h"
 #include "graphic_command.h"

@@ -1,9 +1,4 @@
-/*
-** EPITECH PROJECT, 2024
-** B-YEP-400-PAR-4-1-zappy-alexis.mer
-** File description:
-** Deraumere.hpp
-*/
+
 
 #include "Food.hpp"
 #include <iostream>

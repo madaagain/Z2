@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2023
-** B-YEP-400-PAR-4-1-zappy-alexis.mer
-** File description:
-** client.cpp
-*/
-
 #include <asio/read_until.hpp>
 #include "Client.hpp"
 #include "Window.hpp"

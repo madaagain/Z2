@@ -1,9 +1,3 @@
-/*
-** EPITECH PROJECT, 2024
-** Zappy
-** File description:
-** ParserServer
-*/
 
 #include "../../includes/Parser/ParserServer.hpp"
 #include "../../includes/Factory/Factory.hpp"
@@ -172,10 +166,10 @@ void ParserServer::parse(const std::string& command, GameData& gameData)
     } else if (cmd == "pdi") {
             std::vector<std::string> params;
             std::string playerNum;
-    
+
             iss >> playerNum;
             params.push_back(playerNum);
-    
+
             CommandFactory::executeCommand(GraphicsCommand::PDI, params, gameData);
     }
 }

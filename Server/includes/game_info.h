@@ -1,9 +1,4 @@
-/*
-** EPITECH PROJECT, 2023
-** B-YEP-400-PAR-4-1-zappy-alexis.mer
-** File description:
-** game_info.h
-*/
+
 
 #ifndef GAME_INFO_H
     #define GAME_INFO_H

@@ -1,9 +1,4 @@
-/*
-** EPITECH PROJECT, 2023
-** B-YEP-400-PAR-4-1-zappy-alexis.mer
-** File description:
-** ia_command.h
-*/
+
 
 #ifndef IA_COMMAND_H
     #define IA_COMMAND_H

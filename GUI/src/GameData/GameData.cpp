@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2024
-** Zappy
-** File description:
-** GameData
-*/
-
 #include "GameData.hpp"
 #include "APlayer.hpp"
 #include "iostream"
@@ -234,7 +227,7 @@ void GameData::DeathPlayer(const std::vector<std::string>& params)
                 if (it->get()->getId() == player_nbr) {
                     players.erase(it);
                     tiles_map[y][x]->setNbMinusPlayers();
-                    return; 
+                    return;
                 }
             }
         }

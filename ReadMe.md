@@ -28,14 +28,10 @@ Step 2: Create a build folder at the root of the repository
 - ``cd build``
 Step 3: ``Cmake ..`` in the build directory
 Step 4: ``Make`` command
-Step 5: Enjoy 
+Step 5: Enjoy
 
 ## Documentation
 
 For detailed information about the project, including architecture, protocols, and implementation details, please refer to our comprehensive documentation:
 
 Documentation[https://madsdocs.gitbook.io/zappy/]
-
-## Team
-
-This project was developed by a team of 6 over a period of 5 weeks as part of EPITECH.
